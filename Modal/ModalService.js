@@ -6,7 +6,7 @@ angular.module('app')
 			if(option==undefined)
                 option={};
             if(option.templateUrl==undefined)
-                option.templateUrl='tpls/dialog.html';
+                option.templateUrl='../tpls/dialog.html';
             if(option.controller==undefined)
                 option.controller='serviceModalCtrl';
             if(option.resolve==undefined)

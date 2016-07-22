@@ -12,56 +12,23 @@
 	<script src="../lib/angular.js"></script>
 	<script src="../lib/angular-animate.js"></script>
 	<script src="../lib/ui-bootstrap-tpls.js"></script>
+	
 </head>
 <body ng-app="app">
 	<div ng-controller="MyCtrl">
 		<button class="btn btn-default" ng-click="open()">open</button>
 	</div>
 	<script>
-	var app = angular.module('app', ['ui.bootstrap.modal']);
-	app.controller('MyCtrl', ['$scope','$uibModal', function ($scope,$uibModal) {
-		$scope.animationsEnabled = true;
+	var app = angular.module('app', ['ui.bootstrap']);
+	app.controller('MyCtrl', ['$scope','modalService', function ($scope,modalService) {
 		$scope.items = ['item1', 'item2', 'item3'];
-		$scope.open = function (size) {
-
-			var modalInstance = $uibModal.open({
-				animation:$scope.animationsEnabled,
-				appendTo:document.querySelector('.modal-header'),
-				keyboard:true,
-				templateUrl:'dialog.html',
-				controller:'ModalInstanceCtrl',
-				size:size,
-				resolve:{
-					items:function () {
- 						return $scope.items;
-					}
-				}
-			});
-			console.log(modalInstance.result);
-			modalInstance.close('result');
-			modalInstance.result.then(function (selectedItem) {
-		      $scope.selected = selectedItem;
-		    }, function () {
-		      //$log.info('Modal dismissed at: ' + new Date());
-		    });
+		$scope.open = function () {
+			modalService.open(undefined,$scope.items);
 		}
+		
+		
 	}]);
-
-	app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
-
-	  $scope.items = items;
-	  $scope.selected = {
-	    item: $scope.items[0]
-	  };
-
-	  $scope.ok = function () {
-	    $uibModalInstance.close($scope.selected.item);
-	  };
-
-	  $scope.cancel = function () {
-	    $uibModalInstance.dismiss('cancel');
-	  };
-	});
 	</script>
+	<script src="./ModalService.js"></script>
 </body>
 </html>
